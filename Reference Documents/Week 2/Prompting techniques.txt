@@ -1,0 +1,52 @@
+RISEN
+
+
+R → Role
+I → Instructions
+S → Steps
+E → End Goal
+N → Narrow Constraints
+
+RTF
+
+R → Role
+T → Task
+F → Format
+
+TAG
+
+T → Task
+A → Action
+G → Goal
+
+CARE
+
+C → Context
+A → Action
+R → Result
+E → Example
+
+
+COAST
+
+
+C → Context
+O → Objective
+A → Actions
+S → Style
+T → Tone
+
+
+APE
+
+A → Action
+P → Purpose
+E → Expectation
+
+SMART 
+
+S → Specific
+M → Measurable
+A → Achievable
+R → Relevant
+T → Time-bound

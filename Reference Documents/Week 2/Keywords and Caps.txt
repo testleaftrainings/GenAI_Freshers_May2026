@@ -1,0 +1,61 @@
+
+To Increase Creativity/Temperature
+brainstorm
+explore
+imagine
+creative
+innovative
+story
+think freely
+
+To Control Creativity/Temperature
+deterministic
+no speculation
+use only provided context
+single best answer
+strict format
+no alternatives
+
+ALL-CAPS = hard constraint
+ 
+“MANDATORY / SHALL / MUST” = non-negotiable rule
+ 
+So the model does not not creativity.
+
+
+ALL-CAPS = hard constraint
+ 
+“MANDATORY / SHALL / MUST” = non-negotiable rule
+
+CAPS:
+MANDATORY
+STRICT
+CRITICAL
+DO NOT
+ONLY
+EXACT
+SINGLE
+FINAL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
