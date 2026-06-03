@@ -1,0 +1,10 @@
+Assessment 1:
+
+Tesla car functions
+ 
+Assessment 2:
+Linear regression 
+
+Assessment 3:
+1.Where and how supervised and unsupervised learning used
+2.Open router (usage of models)

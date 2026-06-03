@@ -1,0 +1,4 @@
+
+1.Explore the Backend dependencies used for applications
+2.Build a portfolio on your own
+3.Git and GitHub 

@@ -1,0 +1,8 @@
+
+1.SOLID principles(Basic)
+2.coding standards
+3.Authentication Types (oauth,jwt,sos.,etc)
+
+4.tokenizer in different LLM providers
+
+5.Postman api practice
