@@ -1,0 +1,79 @@
+Hi everyone 👋
+
+fine-tuning can be used to help a model generate code based on a trained dataset.
+
+For example, if we train the model with our framework standards, reusable methods, naming conventions, page object structure, API utility classes, and sample test scripts, the model can generate automation code that follows our expected framework style.
+
+
+*Fine-tuning is mainly useful when we want the model to learn:*
+
+Framework coding style
+Standard code structure
+Naming conventions
+Reusable method usage
+Company-specific automation patterns
+Domain-specific test flow
+Expected output format
+
+But fine-tuning is not only for automation. It is also used in many domain-specific business applications.
+Please got through
+
+*For example:*
+
+*Zepto:*
+Zepto built a multilingual spell-correction system using Llama3-8B, prompt engineering, few-shot examples, structured JSON output, and RAG. They call it “instruct fine-tuning,” but they clearly mention that model weights were not modified. So this is better understood as prompt/instruction tuning + RAG, not classical fine-tuning.
+
+*Ola:*
+Ola’s Krutrim platform provides foundation models, instruction-tuned models, fine-tuning infrastructure, and AI agents.
+
+*Uber Eats:*
+Uber uses open-source and in-house approaches to optimize LLM training for large-scale use cases.
+
+*Netflix:*
+Netflix uses foundation models for personalization-related applications, where domain-specific behavior and recommendation quality are very important.
+
+*Grammarly:*
+Grammarly fine-tuned LLMs for multilingual writing assistants, grammar correction, text simplification, and paraphrasing across languages.
+
+*Spotify:*
+Spotify uses AI/ML and LLM-based approaches in product experiences like personalized music insights and Wrapped-style experiences.
+
+*Pinterest:*
+Pinterest explores fine-tuning and domain-specific model adaptation for recommendation and content understanding use cases.
+
+*Swiggy:*
+Swiggy explored fine-tuning, but prompt engineering and agents seem more practical for their enterprise-scale customer support use case.
+
+*The key takeaway:*
+
+Fine-tuning is useful when we want the model to learn a repeated pattern, domain language, response style, code structure, or business-specific format.
+
+But for live or frequently changing data like order status, refund status, account balance, Jira status, or real-time test execution results, we should use APIs, MCP, RAG, or agents.
+
+Also remember: fine-tuning improves consistency, but it does not guarantee 100% correct output. Human review, validation, and execution are still required.
+
+*Reference links:*
+
+*Zepto*
+https://blog.zeptonow.com/lost-in-translation-how-we-fix-misspelled-multilingual-queries-with-llms-173ce00c2ba1
+
+*Ola Krutrim*
+https://docs.cloud.olakrutrim.com/basics/ai-studio/ai-jobs/fine-tuning
+
+*Uber Eats*
+https://www.uber.com/in/en/blog/open-source-and-in-house-how-uber-optimizes-llm-training/
+
+*Netflix*
+https://netflixtechblog.medium.com/integrating-netflixs-foundation-model-into-personalization-applications-cf176b5860eb
+
+*Grammarly*
+https://www.grammarly.com/blog/engineering/advancing-intelligent-writing/
+
+*Spotify*
+https://engineering.atspotify.com/2026/3/inside-the-archive-2025-wrapped
+
+*Pinterest*
+https://arxiv.org/html/2410.17152v1
+
+*Swiggy*
+https://www.databricks.com/blog/redefining-customer-support-swiggys-enterprise-scale-ai-agent-built-databricks
