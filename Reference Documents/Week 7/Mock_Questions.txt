@@ -1,0 +1,108 @@
+Question
+Can Prompt Engineering completely replace Fine-Tuning?
+Why might a Fine-Tuned model perform worse than the original model?
+Why do LLMs hallucinate even when trained on huge amounts of data?
+Why can two users ask the same question and receive different responses from an LLM?
+Why can a smaller model sometimes outperform a larger model?
+Why Do Companies Use LangFlow?
+Chatbot Gives Wrong Refund Policy .How do you identify the issue?
+Company Wants AI Assistant for Internal Policies .Fine-Tuning or Prompt Engineering?
+
+"Your company fine-tunes a model on HR policies.Now it starts answering almost every question from an HR perspective.
+Why?"
+If a model truly understands language, why can it still hallucinate?
+Why is Deep Learning considered a subset of Machine Learning?
+What is the purpose of Prompt Engineering
+Why do LLMs convert text into tokens?
+Suppose OpenAI releases:Model A → 10 Billion Parameters Model B → 100 Billion Parameters Would you automatically choose Model B?
+
+Your CEO asks:"We already have Prompt Engineering. Why should we spend money on Fine-Tuning?"
+Users report that AI responses became slower after adding multiple tools and workflows.What would you investigate?
+Users ask:"Explain loan eligibility."Some responses are short.Some are very detailed.Management wants consistent answers.What would you do?
+Why is hallucination a bigger concern in healthcare than in content writing?
+Can increasing model size eliminate hallucinations?
+LangFlow Application Is Slow .How Would You Debug?
+Healthcare Chatbot Is 99% Accurate. Deploy?
+
+Your AI assistant gives excellent answers in English but poor answers in regional languages. Why?
+If a model gives correct answers 95% of the time, how would you evaluate whether it is ready for production?
+Suppose a company spends six months Fine-Tuning a model.A competitor achieves similar results using only Prompt Engineering.What lesson can be learned?
+A CEO asks: "We have excellent prompts, excellent models, and excellent infrastructure. Why are users still unhappy?"
+Why might a perfectly trained model still make mistakes?
+Why do companies use chatbots instead of human agents for simple queries?
+Imagine you are building an AI Doctor.Which is more dangerous?  Wrong Answer or No answer
+Your Fine-Tuned model performs better than GPT-4 on internal company tasks.Should you immediately replace GPT-4 everywhere?
+
+An insurance company wants AI to approve claims automatically.Would you recommend full automation?
+Users complain that your chatbot sounds robotic.What would you improve first?
+If AI becomes smarter than humans in every task, will humans stop making decisions?
+Suppose you have:Best Data ,Best Model,Best Engineers
+Why might a company choose a smaller AI model instead of GPT-5?
+Your AI assistant performs well for experienced users but poorly for beginners.why?
+If a model performs perfectly in one country, why might it fail in another?
+Building a powerful AI model or Deploying it successfully in a company? Which is harder
+
+If a customer has never purchased anything before, how would a recommendation system handle that user?
+Netflix launches in a new country and has no user watch history. How would recommendations work initially?
+A hospital wants AI to identify diseases from X-ray images. Would you choose Machine Learning or Deep Learning and why?
+Your chatbot answers customer questions correctly but uses different formats every time. How would you fix this?
+A company fine-tunes a model for legal documents. Later, the model starts answering non-legal questions poorly. Why?
+What is the biggest difference between a recommendation system and a search engine?
+
+Why is Generative AI becoming more popular than traditional AI applications?
+Why are AI Agents considered the next evolution after chatbots?
+If an LLM already knows language, why do we still need Prompt Engineering?
+Why is LangFlow preferred for Proof of Concepts (POCs) rather than immediately building everything from code?
+An AI assistant gives excellent answers when asked one question but struggles when users ask multiple questions together. What could be the reason?
+Why might a Fine-Tuned model perform worse than a Prompt-Engineered model for certain tasks?
+If a customer has never purchased anything before, how would a recommendation system handle that user?
+
+Why do AI models require retraining periodically?
+Why is Deep Learning especially useful for image processing?
+Why might two users receive different recommendations even if they watch the same movie?
+Why is Deep Learning more expensive than traditional Machine Learning?
+An AI assistant performs well during office hours but becomes slow during peak traffic.what could be happening?
+
+An AI assistant performs well during office hours but becomes slow during peak traffic.what could be happening?
+Why is LangFlow preferred for Proof of Concepts (POCs) rather than immediately building everything from code?
+If LLMs are trained on huge datasets, why do they still require prompts?
+Suppose a company fine-tunes a model every month.Could performance still degrade over time?
+An AI Agent and an LLM are given the same task Book a meeting and send an email.Why is the Agent more suitable?
+Suppose your AI system has:99% Accuracy,Excellent Infrastructure,Fast Response Time,But users still don't use it.,What metric would you investigate first?
+
+If an LLM has never seen a fact during training, can Prompt Engineering teach it that fact?
+If AI becomes capable of performing every technical task better than humans, what skill becomes most valuable for humans?
+A model predicts employee attrition accurately.HR still doesn't use it.Why?
+A chatbot works well for FAQs but struggles when users ask follow-up questions.
+Why is data quality often more important than algorithm selection?
+Why can't Machine Learning models learn anything useful from random data?
+Why is Deep Learning called "Deep"?
+Why might a company prefer AI assistance instead of full AI automation?
+
+Why might a company prefer AI assistance instead of full AI automation?
+Why is a model trained on 1 million records not always better than a model trained on 100,000 records?
+A company wants AI to screen resumes automatically.What risks would you highlight?
+Why do AI projects often take longer than expected?
+Why might users trust a human more than an AI even when the AI is more accurate?
+Why do organizations worry about AI security?
+Your AI assistant answers technical questions perfectly but struggles with simple customer-facing communication.why?
+
+Why might a company intentionally avoid using AI for some processes?
+Your chatbot answers correctly but customers still contact human support.
+Management says:"Let's buy a bigger model and all our AI problems will disappear."Do you agree?
+Why can an AI model perform well during testing but fail when real users start using it?
+If AI can generate code, why do companies still hire software engineers?
+
+If AI can generate code, why do companies still hire software engineers?
+Why might a company intentionally avoid using AI for some processes?
+Why do AI systems require monitoring even after successful deployment?
+What is the biggest misconception organizations have about AI?
+Why do AI systems sometimes struggle with common-sense reasoning?
+If an LLM answers 99 out of 100 questions correctly, why might businesses still hesitate to trust it?
+
+A banking chatbot answers loan questions perfectly.However, it struggles with general knowledge questions.
+The chatbot knows company policies but employees still email HR.What might be the issue?
+"What will be our company revenue in 2035?"The chatbot confidently provides a number.What happened?
+User says:"Book a meeting with my manager tomorrow at 10 AM and send a confirmation email."Would a chatbot be enough?
+"Book a meeting with my manager tomorrow at 10 AM and send a confirmation email."Would a chatbot be enough?
+LangFlow Application Is Slow .How Would You Debug?
