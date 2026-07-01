@@ -1,0 +1,51 @@
+RAG
+
+Ingestion Pipeline
+Retrieval Pipeline
+
+Ingestion:
+
+Data source-Data collection
+Convert to json
+Create embedding & store in Vector DB
+
+Structured Data -
+Unstructured data-Chunking &Embedding & Ingestion
+
+Retrieval :
+
+Query Preprocessing
+Vector Search
+BM25 Search
+Hybrid Search
+Reranking
+Deduplication
+Summarization
+Context 
+
+
+LLM Generate 
+
+
+
+Query Preprocessing:
+
+1.Normalization
+2.Abbreviation Expansion
+3.Synonyms
+
+
+BM25 -Keyword Search
+Score -
+
+vector --90 semantically
+85
+83
+82
+81
+
+BM25 -score keyword score 
+
+Vector DB-Pre written algorithm 
+
+
