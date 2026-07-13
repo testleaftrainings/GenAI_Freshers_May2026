@@ -1,0 +1,29 @@
+Home Assignment :
+
+
+Create an application for the below requirement :
+
+Techstacks:
+
+Backend :Node/Typescript
+Frontend :React
+
+Basic Requirement
+
+Develop a Question & Answer (Q&A) application with both Frontend and Backend.
+
+Functional Requirements
+Provide a UI where users can upload a document.
+Extract and process the content from the uploaded document.
+Allow users to ask questions related to the uploaded document.
+Generate answers using an LLM based only on the content of the uploaded document.
+Support different response formats, such as:
+Detailed
+Concise
+Ensure responses:
+Do not contain hallucinated information.
+Do not include external knowledge, websites, or references.
+Are strictly limited to the information available in the uploaded document.
+Scope
+Frontend development for document upload and question submission.
+Backend development for document processing, retrieval, and answer generation.
