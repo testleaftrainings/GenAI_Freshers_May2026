@@ -1,0 +1,11 @@
+Develop a responsive front-end Event / Workshop Registration Portal.
+
+The application should allow users to explore upcoming events, search and filter events by category, view detailed event information, and register using a registration form.
+
+Create a minimum of 6 static events belonging to different categories. Implement event search, category filtering, event details, registration form validation, and a successful registration confirmation.
+
+The application must include Home, Events, About, Contact, and Footer sections and should work properly on desktop and mobile devices.
+
+This is strictly a front-end-only application. Use static/mock data. Backend, database, authentication, payment integration, external APIs, and actual registration storage are not required.
+
+Focus on UI quality, responsiveness, usability, functional interactions, clean structure, and proper validation.
