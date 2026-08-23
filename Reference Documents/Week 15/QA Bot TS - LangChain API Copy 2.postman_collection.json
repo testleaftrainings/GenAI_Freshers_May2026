@@ -1,0 +1,283 @@
+{
+  "info": {
+    "_postman_id": "cb6b4ed0-e4ea-47e4-8761-cdddbf529d14",
+    "name": "QA Bot TS - LangChain API Copy 2",
+    "description": "Complete API collection for qa-bot-ts with LangChain features:\n\n- Resume Search (Vector, Keyword, Hybrid)\n    \n- Conversational Chat with Memory\n    \n- Document QA\n    \n- Ingestion Pipeline",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48163414",
+    "_collection_link": "https://go.postman.co/collection/48163414-cb6b4ed0-e4ea-47e4-8761-cdddbf529d14?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Check server health, model info, and retrieval pipeline status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Resume Search",
+      "item": [
+        {
+          "name": "Vector Search (Semantic)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Selenium Java automation tester\",\n  \"searchType\": \"vector\",\n  \"topK\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/search/resumes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "resumes"
+              ]
+            },
+            "description": "Semantic search using vector embeddings (Mistral 1024-dim)"
+          },
+          "response": []
+        },
+        {
+          "name": "Keyword Search (BM25-style)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Playwright test engineer\",\n  \"searchType\": \"keyword\",\n  \"topK\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/search/resumes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "resumes"
+              ]
+            },
+            "description": "Keyword-based search using MongoDB regex matching"
+          },
+          "response": []
+        },
+        {
+          "name": "Hybrid Search (Vector + Keyword)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Automation engineer based out of chennai with 5 years of experience\",\n  \"searchType\": \"hybrid\",\n  \"topK\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/search/resumes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "resumes"
+              ]
+            },
+            "description": "Combined vector + keyword search (weights: vector=0.2, keyword=0.8)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Conversational Chat (Memory)",
+      "item": [
+        {
+          "name": "Start New Conversation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.conversationId) {",
+                  "    pm.collectionVariables.set('conversationId', jsonData.conversationId);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Find Selenium testers with more than 10 years of experience\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat"
+              ]
+            },
+            "description": "Start a new conversation (auto-saves conversationId)"
+          },
+          "response": []
+        },
+        {
+          "name": "Continue Conversation (Follow-up)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"From those, filter only candidates only above 6 years\",\n  \"conversationId\": \"{{conversationId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat"
+              ]
+            },
+            "description": "Continue conversation with memory context"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter Results (Conversational)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Now show me only the ones in 13 years\",\n  \"conversationId\": \"{{conversationId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat"
+              ]
+            },
+            "description": "Filter previous results without new search"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Conversation History",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversationId\": \"{{conversationId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat",
+                "history"
+              ]
+            },
+            "description": "Get full chat history for a conversation"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Conversation",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/chat/{{conversationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat",
+                "{{conversationId}}"
+              ]
+            },
+            "description": "Delete conversation and clear memory"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8787"
+    },
+    {
+      "key": "conversationId",
+      "value": ""
+    }
+  ]
+}

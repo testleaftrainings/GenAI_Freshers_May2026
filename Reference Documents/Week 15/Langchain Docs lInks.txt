@@ -1,0 +1,21 @@
+https://docs.langchain.com/oss/javascript/langchain/overview --Supported languages
+
+https://docs.langchain.com/oss/javascript/langchain/models
+
+https://www.langchain.com/blog/series-b
+
+https://www.langchain.com/
+
+https://www.langchain.com/customers
+
+https://docs.langchain.com/oss/python/concepts/products
+
+https://docs.langchain.com/oss/python/langchain/overview
+--
+https://docs.langchain.com/oss/python/integrations/providers/overview--  Tools list
+
+https://github.com/langchain-ai/langchain-community/tree/main/libs/community/langchain_community
+
+https://github.com/langchain-ai/langchain/
+
+

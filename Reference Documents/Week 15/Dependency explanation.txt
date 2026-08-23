@@ -1,0 +1,38 @@
+The simplest analogy for a TypeScript developer:
+
+
+
+Python         --> Typescript
+
+requirements.txt → package.json (dependency list)
+
+pip install → npm install
+
+FastAPI → Express.js/NestJS 
+
+uvicorn → node app.js (the server process that runs your app)
+
+langchain → AI application framework/orchestrator 
+
+langchain-text-splitters → Document chunking utility
+
+langgraph → Agent/workflow engine
+
+sentence-transformers → Embedding model library   
+
+pypdf → pdf-parse
+
+python-docx → mammoth/docx
+
+tiktoken → js-tiktoken(A library that converts text into LLM tokens and counts them, helping estimate token usage, context limits, and API costs.)
+
+numpy → High-performance numerical computation library
+
+scikit-learn → Machine learning toolkit (A Python machine learning library that provides ready-to-use algorithms for tasks like classification, clustering, regression, and similarity calculations.)
+
+python-multipart → multer
+
+reportlab → pdf-lib/PDFKit (A Python library used to create and generate PDF documents programmatically, such as reports, invoices, and certificates.)
+
+
+
