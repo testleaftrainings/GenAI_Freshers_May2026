@@ -1,0 +1,1028 @@
+{
+  "info": {
+    "_postman_id": "38ab9d2e-cb53-4488-8270-eeb1e3abb518",
+    "name": "DeepEval Metrics Testing Collection-Jan Copy",
+    "description": "Comprehensive Postman collection for testing all DeepEval metrics with LLM-only, RAG, and single evaluation endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48163414",
+    "_collection_link": "https://go.postman.co/collection/48163414-38ab9d2e-cb53-4488-8270-eeb1e3abb518?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "API Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3002/api/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Faithfulness Metric",
+      "item": [
+        {
+          "name": "Scenario 1 - Good Faithfulness (Selenium)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Response has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('metric');",
+                  "    pm.expect(jsonData).to.have.property('score');",
+                  "    pm.expect(jsonData).to.have.property('explanation');",
+                  "});",
+                  "pm.test(\"Score should be high for good faithfulness\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.score).to.be.greaterThan(0.7);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Generate test cases for login functionality.\",\n  \"output\": \"Verify login with valid credentials. Verify login with invalid password. Verify login with empty username.\",\n  \"context\": \"The application allows users to login using username and password. The system should display an error message for invalid credentials.\",\n  \"metric\": \"faithfulness\"\n}\n"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 2 - Bad Faithfulness (Mismatch Context)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Score should be low for bad faithfulness\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.score).to.be.lessThan(0.5);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is selenium\",\n  \"output\": \"Selenium is a web automation framework for testing web application\",\n  \"context\": \"Selenium is a rare element\",\n  \"metric\": \"faithfulness\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 3 - Partial Faithfulness (Minor Addition)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Response contains evaluation details\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('score');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is Selenium?\",\n  \"context\": [\n    \"Selenium is a web automation framework used for testing web applications.\"\n  ],\n  \"output\": \"Selenium is a web automation framework used for testing web and desktop applications.\",\n   \"metric\": \"faithfulness\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 4 - Faithfulness with Hallucination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Metric should be faithfulness\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.metric).to.equal('faithfulness');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"metric\": \"faithfulness\",\n    \"query\": \"What is Selenium?\",\n    \"context\": [\n        \"Selenium is a web automation framework for testing web applications.\"\n    ],\n    \"output\": \"It is a mineral found in soil and some foods, important for human health.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Answer Relevancy Metric",
+      "item": [
+        {
+          "name": "Scenario 1 - Good Relevancy (Order Status)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Score should be high\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.score).to.be.greaterThan(0.6);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Where is my order?\",\n  \"output\": \"Your order is out for delivery and will arrive today.\",\n  \"metric\": \"answer_relevancy\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 2 - Poor Relevancy (UPI PIN Reset)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Score should be low for irrelevant answer\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.score).to.be.lessThan(0.5);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"How do I reset my UPI PIN?\",\n  \"output\": \"UPI is a real-time payment system in India.\",\n  \"metric\": \"answer_relevancy\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 3 - Good Relevancy (UPI PIN Steps)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"How do I reset my UPI PIN?\",\n  \"output\": \"Go to app → UPI settings → Reset PIN → verify with OTP.\",\n  \"metric\": \"answer_relevancy\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 4 - Relevancy (Dengue Symptoms)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What are symptoms of dengue?\",\n  \"output\": \"Fever, headache, joint pain, rash.\",\n  \"metric\": \"answer_relevancy\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 5 - Poor Relevancy (Leave Policy)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is my company's leave policy?\",\n  \"output\": \"Leave policies same across companies.\",\n  \"metric\": \"answer_relevancy\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 6 - Good Relevancy (Leave Policy Specific)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is my company's leave policy?\",\n  \"output\": \"You get 20 paid leaves per year as per policy.\",\n  \"metric\": \"answer_relevancy\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Context Recall Metric",
+      "item": [
+        {
+          "name": "Scenario 1 - Perfect Context Recall (Salesforce login)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Metric should be contextual_recall\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.metric).to.equal('contextual_recall');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metric\": \"contextual_recall\",\n  \"query\": \"Salesforce login troubleshooting Steps\",\n  \"expected_output\": \"Steps to resolve Salesforce login issues: verify username, reset password, check SSO/SAML, network/allowlist, lockout, MFA.\",\n  \"context\": [  \n    \"KB: Salesforce login error codes and fixes (invalid username/password, lockout, SSO).\",\n    \"Admin guide: Resetting user passwords and unlocking users in Salesforce.\",\n    \"Troubleshooting MFA login failures for Salesforce.\",\n    \"Network & allowlist: Salesforce trust domains, firewall/proxy, TLS/cipher requirements.\"\n  ],\n  \"output\": \"N/A\"\n}\n"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 2 - Poor Context Recall (Salesforce Login)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Score should be low for poor context recall\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.score).to.be.lessThan(0.5);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Salesforce login troubleshooting Steps\",\n  \"context\": [\n    \"Chennai office holiday list 2025.\",\n    \"Salesforce Lightning theming and branding guide.\",\n    \"ServiceNow SSO configuration overview.\"\n  ],\n  \"output\": \"Steps to resolve Salesforce login issues: verify username, reset password, check SSO/SAML, network/allowlist, lockout, MFA.\",\n  \"expected_output\": \"Steps to resolve Salesforce login issues: verify username, reset password, check SSO/SAML, network/allowlist, lockout, MFA.\",\n  \"metric\": \"contextual_recall\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 3 - Partial Context Recall (Fund Transfer)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"query\": \"Generate test cases for fund transfer\",\n    \"context\": [\n        \"Validate sufficient balance\",\n        \"Validate beneficiary account exists\",\n        \"Validate OTP authentication\"\n    ],\n    \"output\": \"1. Validate sufficient balance 2. Validate beneficiary account exists 3. Validate OTP authentication\",\n    \"expected_output\": \"1. Validate sufficient balance 2. Validate beneficiary account exists 3. Validate transfer limit per day 4. Handle same account transfer restriction 5. Validate OTP authentication\",\n    \"metric\": \"contextual_recall\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 4 - Partial Context Recall (Onboarding)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"query\": \"Summarize onboarding steps for new employees\",\n    \"context\": [\n        \"Account creation\",\n        \"Training\"\n    ],\n    \"output\": \"Account creation and Training\",\n    \"expected_output\": \"Account creation, ID verification, Training modules, HR policies\",\n    \"metric\": \"contextual_recall\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 5 - Partial Context Recall (Diabetes Symptoms)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Symptoms of Diabetes\",\n  \"context\": [\n    \"Frequent urination\",\n    \"Increased thirst\",\n    \"Fatigue\"\n  ],\n  \"expected_output\": \"1. Frequent urination 2. Increased thirst 3. Fatigue 4. Blurred vision\",\n  \"metric\": \"contextual_recall\",\n  \"output\": \"test\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Context Precision Metric",
+      "item": [
+        {
+          "name": "Scenario 1 - Good Context Precision (Account Transfer)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Metric should be contextual_precision\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.metric).to.equal('contextual_precision');",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"How to do account transfer for own account\",\n  \"context\": [\n    \"Transfer options\",\n    \"Source/Destination Account validation\"\n  ],\n  \"output\": \"User must verify source and destination accounts and use the transfer option to move funds between own accounts.\",\n  \"expected_output\": \"User must verify source and destination accounts and use the transfer option to move funds between own accounts.\",\n  \"metric\": \"contextual_precision\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 2 - Poor Context Precision (Diabetes - Irrelevant Context)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Score should be lower for imprecise context\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.score).to.be.lessThan(0.6);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Symptoms of Diabetes\",\n  \"context\": [\"Diabetes is caused due to decrease in the secretion of insulin\", \"Diabetes can be genetical\", \"Fatigue\", \"Frequent urination\", \"Increased thirst\"],\n  \"expected_output\": \"1. Frequent urination 2. Increased thirst 3. Fatigue 4. Blurred vision\",\n  \"metric\": \"contextual_precision\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 3  Context Precision with Irrelevant Info",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"How to do account transfer for own account\",\n  \"context\": [\n    \"Transfer options\",\n    \"Source/Destination Account validation\",\n    \"Loan EMI\",\n    \"Password reset\",\n    \"Forgot password\"\n  ],\n  \"output\": \"N/A\",\n  \"expected_output\": \"User must verify source and destination accounts and use the transfer option to move funds between own accounts.\",\n  \"metric\": \"contextual_precision\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Hallucination Metric",
+      "item": [
+        {
+          "name": "Scenario 1 - No Hallucination with Faithfulness",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Metric should be hallucination\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.metric).to.equal('hallucination');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is selenium\",\n  \"output\": \"Selenium is a web automation framework for testing web application\",\n  \"context\": [\"Selenium is a web automation framework for testing web application\"],\n  \"metric\": \"hallucination\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3002",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scenario 3 - Hallucination Detected (Selenium)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is Selenium?\",\n  \"output\": \"Selenium is an open-source tool used for automating web browsers, and it is mainly used for mobile app testing.\",\n  \"context\": [\"Selenium is an open-source tool only used for automating web browsers applications,It supports multiple programming languages like Java, Python, and C#.\"],\n  \"metric\": \"hallucination\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/eval-only",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "eval-only"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3002/api"
+    },
+    {
+      "key": "groq_model",
+      "value": "llama-3.3-70b-versatile"
+    },
+    {
+      "key": "temperature",
+      "value": "0.7"
+    }
+  ]
+}

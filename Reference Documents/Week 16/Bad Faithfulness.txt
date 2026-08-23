@@ -1,0 +1,49 @@
+Bad Faithfulness:
+
+Scenario 1:
+{
+    "query": "What is Selenium?",
+    "context": [
+        "Selenium is a web automation framework used for testing web applications."
+    ],
+    "output": "Selenium is a rare chemical element found in the Earth's crust and is primarily used in manufacturing solar panels.",
+    "metric": "faithfulness"
+}
+Scenario 2:
+
+{
+  "query": "What is Playwright?",
+  "output": "Playwright is a browser automation framework developed by Microsoft.",
+  "context": "Playwright is a stage performance written for theatrical production.",
+  "metric": "faithfulness"
+}
+
+
+Scenario 3:
+
+{
+  "query": "Generate test cases for user login.",
+  "output": "Verify biometric authentication. Verify facial recognition login. Verify fingerprint enrollment.",
+  "context": "The application supports only username and password authentication. Biometric authentication, facial recognition, and fingerprint login are not supported.",
+  "metric": "faithfulness"
+}
+
+Scenario 4:
+{
+  "query": "What is Chrome?",
+  "context": [
+    "Google Chrome is a web browser developed by Google."
+  ],
+  "output": "Google Chrome is a relational database management system used for storing enterprise data.",
+  "metric": "faithfulness"
+}
+
+Scenario 5:
+{
+  "query": "How does fund transfer work?",
+  "context": [
+    "Users must authenticate using OTP before transferring funds."
+  ],
+  "output": "Fund transfers are completed without authentication and do not require user verification.",
+  "metric": "faithfulness"
+}

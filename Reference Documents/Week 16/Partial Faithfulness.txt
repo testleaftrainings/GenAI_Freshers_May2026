@@ -1,0 +1,39 @@
+Partial Faithfulness:
+
+Scenario 1:
+{
+  "query": "What is Selenium?",
+  "context": [
+    "Selenium is a web automation framework used for testing web applications."
+  ],
+  "output": "Selenium is a web automation framework used for testing web and desktop applications.",
+   "metric": "faithfulness"
+}
+
+Scenario 2:
+{
+  "query": "How does fund transfer work?",
+  "context": [
+    "Users must complete OTP verification before transferring funds."
+  ],
+  "output": "Users must complete OTP verification before transferring funds. OTP verification is not required for fund transfers.",
+  "metric": "faithfulness"
+}
+Scenario 3:
+{
+  "query": "Generate test cases for login.",
+  "context": [
+    "The application supports username and password authentication only."
+  ],
+  "output": "1. Verify login using username and password. 2. Verify biometric login. Biometric login is the only supported authentication method.",
+  "metric": "faithfulness"
+}
+Scenario 4:
+{
+  "query": "Generate test cases for password reset.",
+  "context": [
+    "Users can reset their password through a registered email address."
+  ],
+  "output": "1. Verify password reset using registered email. 2. Verify reset link expiration. Password reset cannot be performed using email.",
+  "metric": "faithfulness"
+}

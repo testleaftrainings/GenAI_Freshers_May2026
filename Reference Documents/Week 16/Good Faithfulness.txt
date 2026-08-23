@@ -1,0 +1,56 @@
+Good Faithfulness :
+
+
+{
+  "query": "What is Selenium?",
+  "context": [
+    "Selenium is a web automation framework used for testing web applications."
+  ],
+  "output": "Selenium is a web automation framework used for testing web applications.",
+   "metric": "faithfulness"
+}
+
+Scenario 1:
+
+{
+  "query": "What is a savings account?",
+  "output": "A savings account is a bank account that allows customers to deposit money and earn interest.",
+  "context": "A savings account is a bank account that allows customers to deposit money and earn interest.",
+  "metric": "faithfulness"
+}
+
+Scenario 2:
+
+{
+  "query": "Generate test cases for login functionality.",
+  "output": "Verify login with valid credentials. Verify login with invalid password. Verify login with empty username.",
+  "context": "The application allows users to login using username and password. The system should display an error message for invalid credentials.",
+  "metric": "faithfulness"
+}
+
+Scenario 3:
+
+{
+  "query": "What is Continuous Integration?",
+  "output": "Continuous Integration is the practice of frequently merging code changes and validating them through automated builds and tests.",
+  "context": "Continuous Integration is a software development practice where developers regularly integrate code changes into a shared repository, followed by automated build and testing processes.",
+  "metric": "faithfulness"
+}
+
+Scenario 4:
+
+{
+  "query": "What is a defect lifecycle?",
+  "output": "The defect lifecycle describes the various states a bug goes through from discovery until closure.",
+  "context": "A defect lifecycle is the journey of a defect through different statuses such as New, Assigned, Open, Fixed, Retested, and Closed.",
+  "metric": "faithfulness"
+}
+
+scenario 5:
+
+{
+  "query": "What is API Testing?",
+  "output": "API Testing validates the behavior and reliability of application programming interfaces.",
+  "context": "API Testing is a testing approach used to verify the functionality, reliability, performance, and security of APIs.",
+  "metric": "faithfulness"
+}
